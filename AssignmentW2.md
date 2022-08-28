@@ -34,7 +34,7 @@ ignored.)
 
     hist(per_day, breaks=10, xlab='Avg-Steps per day')
 
-![](AssignmentW2_files/figure-markdown_strict/unnamed-chunk-3-1.png)
+![](/unnamed-chunk-3-1.png)
 
     s
 
@@ -74,7 +74,7 @@ ignored.)
     abline(v=max_interval)
     text(x=max_interval, y=0, labels=max_interval)
 
-![](AssignmentW2_files/figure-markdown_strict/unnamed-chunk-5-1.png)
+![](/unnamed-chunk-5-1.png)
 
     max_steps
 
@@ -114,7 +114,7 @@ avg-steps per interval.
     mean2 <- s3[[4]]
     hist(per_day2, breaks=10, xlab='Avg-Steps per day')
 
-![](AssignmentW2_files/figure-markdown_strict/unnamed-chunk-8-1.png)
+![](/unnamed-chunk-8-1.png)
 
     s3
 
@@ -221,4 +221,4 @@ Calculate avg steps per interval for weekdays and weekends.
     plot(unique(activity2$interval), per_interval2$weekday/5, type='l',  xlab='Intervals',ylab='Avg-Steps per interval',main='Weekdays')
     plot(unique(activity2$interval), per_interval2$weekend/2, type='l', xlab='Intervals',ylab='Avg-Steps per interval',main='Weekends')
 
-![](AssignmentW2_files/figure-markdown_strict/unnamed-chunk-12-1.png)
+![](/unnamed-chunk-12-1.png)
