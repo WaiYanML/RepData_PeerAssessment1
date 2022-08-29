@@ -1,3 +1,4 @@
+
 # Assignment-Week2
 
 ## Loading and Preprocessing Data
@@ -13,13 +14,15 @@ The total number of steps per day is calculated. (NA values are ignored.)
 ```{r}
 per_day<-tapply(activity$steps, activity$date, sum, na.rm=TRUE)
 s <- summary(per_day)
-median <- s[[3]]
-mean <- s[[4]]
+median <- median(per_day)
+mean <- mean(per_day)
 ```
 ### Histogram of Total Steps per Day
 ```{r}
-hist(per_day, breaks=10, xlab='Avg-Steps per day')
+hist(per_day, breaks=10, xlab='Total-Steps per day')
 s
+median
+mean
 ```
 It can be seen that median and mean of the total steps each day are `r median` and `r mean` respectively.
 
@@ -27,7 +30,7 @@ It can be seen that median and mean of the total steps each day are `r median` a
 Steps are recorded as total 288 of 5-min intervals each day.  
 Average steps during each interval is calculated. (NA values are ignored.)
 ```{r}
-per_interval<-tapply(activity$steps, activity$interval, sum, na.rm=TRUE)
+per_interval<-tapply(activity$steps, activity$interval, mean, na.rm=TRUE)
 max_steps <- max(per_interval)
 max_interval <- rownames(per_interval)[per_interval==max_steps]
 summary(per_interval)
@@ -38,12 +41,14 @@ plot(unique(activity$interval), per_interval, type='l',
      xlab='Intervals',ylab='Avg-Steps per interval')
 abline(v=max_interval)
 text(x=max_interval, y=0, labels=max_interval)
+max_steps
 ```
 As you can see, the interval with maximum steps(`r max_steps`) is `r max_interval`.
 
 ## Imputing Missing Data
 ```{r}
 total_na <- sum(is.na(activity$steps))
+total_na
 ```
 There are `r total_na` missing data in total.
 Missing data is replaced by avg-steps per interval.
@@ -59,8 +64,12 @@ per_day2<-tapply(activity2$steps, activity2$date, sum, na.rm=TRUE)
 s3 <- summary(per_day2)
 median2 <- s3[[3]]
 mean2 <- s3[[4]]
-hist(per_day2, breaks=10, xlab='Avg-Steps per day')
+hist(per_day2, breaks=10, xlab='Total-Steps per day')
 s3
+median2
+mean2
+median
+mean
 ```
 Now, median and mean become `r median2` and `r mean2`.  
 It was `r median` and `r mean` before.  
