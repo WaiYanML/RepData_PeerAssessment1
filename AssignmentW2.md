@@ -32,9 +32,9 @@ ignored.)
 
 ### Histogram of Total Steps per Day
 
-    hist(per_day, breaks=10, xlab='Avg-Steps per day')
+    hist(per_day, breaks=10, xlab='Total-Steps per day')
 
-![](/unnamed-chunk-3-1.png)
+![](AssignmentW2_files/figure-markdown_strict/unnamed-chunk-3-1.png)
 
     s
 
@@ -59,13 +59,13 @@ Steps are recorded as total 288 of 5-min intervals each day.
 Average steps during each interval is calculated. (NA values are
 ignored.)
 
-    per_interval<-tapply(activity$steps, activity$interval, sum, na.rm=TRUE)
+    per_interval<-tapply(activity$steps, activity$interval, mean, na.rm=TRUE)
     max_steps <- max(per_interval)
     max_interval <- rownames(per_interval)[per_interval==max_steps]
     summary(per_interval)
 
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##     0.0   131.8  1808.0  1981.3  2800.2 10927.0
+    ##   0.000   2.486  34.113  37.383  52.835 206.170
 
 ### Average number of steps per interval
 
@@ -74,13 +74,13 @@ ignored.)
     abline(v=max_interval)
     text(x=max_interval, y=0, labels=max_interval)
 
-![](/unnamed-chunk-5-1.png)
+![](AssignmentW2_files/figure-markdown_strict/unnamed-chunk-5-1.png)
 
     max_steps
 
-    ## [1] 10927
+    ## [1] 206.1698
 
-As you can see, the interval with maximum steps(10927) is 835.
+As you can see, the interval with maximum steps(206.1698113) is 835.
 
 Imputing Missing Data
 ---------------------
@@ -98,13 +98,13 @@ avg-steps per interval.
     activity2$steps[is.na(activity2$steps)]<-per_interval[na_interval]
     head(activity2)
 
-    ##   steps       date interval
-    ## 1    91 2012-10-01        0
-    ## 2    18 2012-10-01        5
-    ## 3     7 2012-10-01       10
-    ## 4     8 2012-10-01       15
-    ## 5     4 2012-10-01       20
-    ## 6   111 2012-10-01       25
+    ##       steps       date interval
+    ## 1 1.7169811 2012-10-01        0
+    ## 2 0.3396226 2012-10-01        5
+    ## 3 0.1320755 2012-10-01       10
+    ## 4 0.1509434 2012-10-01       15
+    ## 5 0.0754717 2012-10-01       20
+    ## 6 2.0943396 2012-10-01       25
 
 ### Histogram of total steps per day with replaced missing data
 
@@ -112,22 +112,22 @@ avg-steps per interval.
     s3 <- summary(per_day2)
     median2 <- s3[[3]]
     mean2 <- s3[[4]]
-    hist(per_day2, breaks=10, xlab='Avg-Steps per day')
+    hist(per_day2, breaks=10, xlab='Total-Steps per day')
 
-![](/unnamed-chunk-8-1.png)
+![](AssignmentW2_files/figure-markdown_strict/unnamed-chunk-8-1.png)
 
     s3
 
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##      41    9819   11458   84188   15084  570608
+    ##      41    9819   10766   10766   12811   21194
 
     median2
 
-    ## [1] 11458
+    ## [1] 10766.19
 
     mean2
 
-    ## [1] 84188.07
+    ## [1] 10766.19
 
     median
 
@@ -137,7 +137,7 @@ avg-steps per interval.
 
     ## [1] 9354.23
 
-Now, median and mean become 1.145810^{4} and 8.418806610^{4}.  
+Now, median and mean become 1.076618910^{4} and 1.076618910^{4}.  
 It was 10395 and 9354.2295082 before.  
 Median only changed a bit while mean increased enormously.  
 Let’s see how many data were missed in each interval.
@@ -188,7 +188,7 @@ Below is the summary of values replaced.
     summary(per_interval[na_interval])
 
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##     0.0   131.8  1808.0  1981.3  2800.2 10927.0
+    ##   0.000   2.486  34.113  37.383  52.835 206.170
 
 So, most of the data are below 2800 steps while maximum is over 10000.
 This may be why data averages and histogram changed.
@@ -205,13 +205,13 @@ Now, let’s see weekdays and weekends impact on activity.
     activity2$weekday[is_weekend]<-'weekend'
     head(activity2)
 
-    ##   steps       date interval weekday
-    ## 1    91 2012-10-01        0 weekday
-    ## 2    18 2012-10-01        5 weekday
-    ## 3     7 2012-10-01       10 weekday
-    ## 4     8 2012-10-01       15 weekday
-    ## 5     4 2012-10-01       20 weekday
-    ## 6   111 2012-10-01       25 weekday
+    ##       steps       date interval weekday
+    ## 1 1.7169811 2012-10-01        0 weekday
+    ## 2 0.3396226 2012-10-01        5 weekday
+    ## 3 0.1320755 2012-10-01       10 weekday
+    ## 4 0.1509434 2012-10-01       15 weekday
+    ## 5 0.0754717 2012-10-01       20 weekday
+    ## 6 2.0943396 2012-10-01       25 weekday
 
 Calculate avg steps per interval for weekdays and weekends.
 
@@ -221,4 +221,4 @@ Calculate avg steps per interval for weekdays and weekends.
     plot(unique(activity2$interval), per_interval2$weekday/5, type='l',  xlab='Intervals',ylab='Avg-Steps per interval',main='Weekdays')
     plot(unique(activity2$interval), per_interval2$weekend/2, type='l', xlab='Intervals',ylab='Avg-Steps per interval',main='Weekends')
 
-![](/unnamed-chunk-12-1.png)
+![](AssignmentW2_files/figure-markdown_strict/unnamed-chunk-12-1.png)
